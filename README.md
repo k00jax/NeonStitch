@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧶 NeonStitch
 
-## Getting Started
+**Hand crocheted neon creations** — An e-commerce website for selling vibrant, handmade crochet items.
 
-First, run the development server:
+> Built with Next.js 16, TypeScript, and Tailwind CSS. Payments via Square + Cash App.
+
+## ✨ Features
+
+- **Product Catalog** — Browse hats, bags, clothing, accessories, and home items
+- **Category Filtering** — Filter products by category on the shop page
+- **Shopping Cart** — Add/remove items, adjust quantities, persisted in React Context
+- **Checkout** — Supports Square card payments and Cash App Pay
+- **Responsive Design** — Looks great on mobile, tablet, and desktop
+- **Neon Theme** — Dark background with vibrant neon pink, green, blue, yellow, orange & purple accents
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Install & Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file with your Square credentials:
 
-## Learn More
+```env
+SQUARE_ACCESS_TOKEN=your-square-access-token
+SQUARE_APPLICATION_ID=your-square-application-id
+SQUARE_LOCATION_ID=your-square-location-id
+SQUARE_ENVIRONMENT=sandbox
+```
 
-To learn more about Next.js, take a look at the following resources:
+Get your credentials at [developer.squareup.com](https://developer.squareup.com/apps).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                  # Next.js App Router pages
+│   ├── page.tsx          # Home page (hero + featured products)
+│   ├── shop/page.tsx     # Shop page with category filtering
+│   ├── product/[id]/     # Product detail page
+│   ├── cart/page.tsx     # Shopping cart
+│   ├── checkout/page.tsx # Checkout with payment selection
+│   ├── about/page.tsx    # About NeonStitch
+│   └── api/create-payment/ # Square payment API route
+├── components/           # Reusable UI components
+│   ├── Navbar.tsx        # Navigation with cart badge
+│   ├── Footer.tsx        # Site footer
+│   ├── ProductCard.tsx   # Product card for grid display
+│   └── ProductGrid.tsx   # Responsive product grid
+├── context/
+│   └── CartContext.tsx    # Cart state management (React Context)
+└── lib/
+    ├── products.ts       # Product data & helper functions
+    └── types.ts          # TypeScript type definitions
+```
 
-## Deploy on Vercel
+## 💳 Payments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Payments are handled via **Square**:
+- **Card Payments** — Square Web Payments SDK
+- **Cash App Pay** — Available through Square's payment platform
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The API route at `/api/create-payment` processes payments server-side. The current implementation includes placeholder logic — uncomment the Square SDK calls and add your credentials to go live.
+
+## 🎨 Theme
+
+The site uses a dark theme (`#0a0a0f`) with neon accents defined as CSS custom properties:
+
+| Color | Variable | Hex |
+|-------|----------|-----|
+| Pink | `--neon-pink` | `#ff1493` |
+| Green | `--neon-green` | `#39ff14` |
+| Blue | `--neon-blue` | `#00d4ff` |
+| Yellow | `--neon-yellow` | `#fff01f` |
+| Orange | `--neon-orange` | `#ff6600` |
+| Purple | `--neon-purple` | `#bf00ff` |
+
+## 🌐 Deployment
+
+Deploy to Vercel:
+
+```bash
+npx vercel
+```
+
+Or connect your GitHub repo to [Vercel](https://vercel.com) for automatic deployments.
+
+Remember to add your environment variables in the Vercel dashboard under **Settings → Environment Variables**.
+
+## 📝 Notes
+
+- Product images currently use emoji placeholders. Replace the image areas in `ProductCard.tsx` and product detail page with actual product photos.
+- Product data is in `src/lib/products.ts` — this can be migrated to a database later.
+- The Etsy shop link points to [etsy.com/shop/neonstitchbyemily](https://www.etsy.com/shop/neonstitchbyemily).
