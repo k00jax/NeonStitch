@@ -21,6 +21,15 @@ function decodeHtml(text) {
     .trim();
 }
 
+function decodeEntities(text) {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
 function toSlug(value) {
   return value
     .toLowerCase()
@@ -66,10 +75,17 @@ function parseItems(xml) {
   return itemMatches.map((itemXml) => {
     const title = decodeHtml((itemXml.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "").trim());
     const link = (itemXml.match(/<link>([\s\S]*?)<\/link>/)?.[1] ?? "").trim();
-    const desc = itemXml.match(/<description>([\s\S]*?)<\/description>/)?.[1] ?? "";
-    const priceText = (desc.match(/<p class=\"price\">([\s\S]*?)<\/p>/)?.[1] ?? "0").trim();
-    const image = (desc.match(/<img[^>]*src=\"([^\"]+)\"/i)?.[1] ?? "").trim();
-    const rawDescription = desc.match(/<p class=\"description\">([\s\S]*?)<\/p>/)?.[1] ?? "";
+    const descRaw = itemXml.match(/<description>([\s\S]*?)<\/description>/)?.[1] ?? "";
+    const desc = decodeEntities(descRaw);
+    const priceText =
+      (desc.match(/<p\s+class="price">([\s\S]*?)<\/p>/i)?.[1] ??
+        desc.match(/([0-9]+(?:\.[0-9]{2})?)\s*USD/i)?.[1] ??
+        "0").trim();
+    const image =
+      (desc.match(/<img[\s\S]*?src="([^"]+)"/i)?.[1] ??
+        desc.match(/https:\/\/i\.etsystatic\.com\/[^\s"'<]+/i)?.[0] ??
+        "").trim();
+    const rawDescription = desc.match(/<p\s+class="description">([\s\S]*?)<\/p>/i)?.[1] ?? "";
     const cleanDescription = decodeHtml(rawDescription).slice(0, 340);
     const listingId = link.match(/\/listing\/(\d+)\//)?.[1] ?? toSlug(title);
 
@@ -157,9 +173,11 @@ async function fetchViaEtsyApi() {
 
 async function run() {
   let parsed = [];
+  let source = "rss";
 
   if (ETSY_API_KEY && ETSY_SHOP_ID) {
     parsed = await fetchViaEtsyApi();
+    source = "api";
   }
 
   if (parsed.length === 0) {
@@ -176,6 +194,7 @@ async function run() {
 
     const xml = await response.text();
     parsed = parseItems(xml);
+    source = "rss";
   }
 
   if (parsed.length === 0) {
@@ -184,6 +203,11 @@ async function run() {
 
   fs.writeFileSync(OUTPUT_PATH, `${JSON.stringify(parsed, null, 2)}\n`, "utf8");
   console.log(`Wrote ${parsed.length} Etsy products to ${OUTPUT_PATH}`);
+  if (source === "rss") {
+    console.log(
+      "Using Etsy RSS fallback (usually 10 recent listings). Set ETSY_API_KEY and ETSY_SHOP_ID to import all active listings."
+    );
+  }
 }
 
 run().catch((error) => {
