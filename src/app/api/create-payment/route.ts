@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { amount, currency, paymentMethod, customerInfo, items } = body;
+    const { amount, currency, paymentMethod, customerInfo } = body;
 
     // Validate required fields
     if (!amount || !currency || !paymentMethod || !customerInfo) {

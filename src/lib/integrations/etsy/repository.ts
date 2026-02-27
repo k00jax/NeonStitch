@@ -54,7 +54,7 @@ export async function upsertWebhookDelivery(record: DeliveryRecord): Promise<boo
     ]
   );
 
-  return result.rowCount > 0;
+  return (result.rowCount ?? 0) > 0;
 }
 
 export async function updateWebhookDeliveryStatus(
@@ -99,7 +99,7 @@ export async function enqueueInventorySyncJob(params: {
     [params.jobKey, params.shopId, params.listingId, params.webhookDeliveryKey]
   );
 
-  return result.rowCount > 0;
+  return (result.rowCount ?? 0) > 0;
 }
 
 export async function reserveNextPendingJob(): Promise<
@@ -195,7 +195,7 @@ export async function getListingMappings(shopId: string, listingId: string): Pro
     [shopId, listingId]
   );
 
-  if (variants.rowCount > 0) {
+  if ((variants.rowCount ?? 0) > 0) {
     return variants.rows;
   }
 

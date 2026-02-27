@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { applyInventorySnapshot, getProduct } from "@/lib/products";
@@ -88,18 +89,19 @@ export default function ProductPage() {
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Product Image */}
         <div
-          className="flex h-96 items-center justify-center rounded-2xl lg:h-[500px]"
+          className="relative flex h-96 items-center justify-center overflow-hidden rounded-2xl lg:h-[500px]"
           style={{
             background: `linear-gradient(135deg, ${primaryColor}15, ${primaryColor}30)`,
             border: `1px solid ${primaryColor}20`,
           }}
         >
           {product.images?.[0] ? (
-            <img
+            <Image
               src={product.images[0]}
               alt={product.name}
-              className="h-full w-full rounded-2xl object-cover"
-              referrerPolicy="no-referrer"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="rounded-2xl object-cover"
             />
           ) : (
             <span className="text-8xl">

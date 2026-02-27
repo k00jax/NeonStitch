@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/lib/types";
 import { useCart } from "@/context/CartContext";
@@ -39,12 +40,12 @@ export default function ProductCard({ product }: { product: Product }) {
           }}
         >
           {product.images?.[0] ? (
-            <img
+            <Image
               src={product.images[0]}
               alt={product.name}
-              className="h-full w-full object-cover"
-              loading="lazy"
-              referrerPolicy="no-referrer"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+              className="object-cover"
             />
           ) : (
             <div className="relative">
