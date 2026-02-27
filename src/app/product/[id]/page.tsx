@@ -94,9 +94,18 @@ export default function ProductPage() {
             border: `1px solid ${primaryColor}20`,
           }}
         >
-          <span className="text-8xl">
-            {categoryIcons[product.category] || "🧶"}
-          </span>
+          {product.images?.[0] ? (
+            <img
+              src={product.images[0]}
+              alt={product.name}
+              className="h-full w-full rounded-2xl object-cover"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <span className="text-8xl">
+              {categoryIcons[product.category] || "🧶"}
+            </span>
+          )}
         </div>
 
         {/* Product Details */}

@@ -148,3 +148,15 @@ node scripts/send_etsy_webhook_sample.js tests/etsy/fixtures/etsy-webhook-sample
 ```
 
 The script signs payloads with `ETSY_WEBHOOK_SIGNING_SECRET` and posts to `ETSY_WEBHOOK_URL` (default: `http://localhost:3000/api/webhooks/etsy`).
+
+### Import Etsy Products + Images
+
+Generate local storefront product data from Etsy:
+
+```bash
+npm run import:etsy:products
+```
+
+- If `ETSY_API_KEY` and `ETSY_SHOP_ID` are set, the script uses Etsy API and pulls all active listings.
+- Otherwise, it falls back to Etsy RSS (recent listings only).
+- Output file: `src/lib/etsy-products.generated.json`

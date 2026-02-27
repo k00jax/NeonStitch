@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "worker:etsy": "tsx src/workers/etsyInventoryWorker.ts",
     "worker:etsy:once": "node scripts/run_etsy_inventory_worker.js --once",
-    "simulate:etsy:webhook": "node scripts/send_etsy_webhook_sample.js"
+    "simulate:etsy:webhook": "node scripts/send_etsy_webhook_sample.js",
+    "import:etsy:products": "node scripts/import_etsy_rss_products.js"
   },
   "dependencies": {
     "next": "16.1.6",

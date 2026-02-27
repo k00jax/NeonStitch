@@ -1,0 +1,162 @@
+[
+  {
+    "id": "etsy-1627141567",
+    "sku": "etsy-1627141567",
+    "name": "Mike & Sully Bucket Hat Set",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1627141567/mike-sully-bucket-hat-set?ref=rss"
+  },
+  {
+    "id": "etsy-4390397574",
+    "sku": "etsy-4390397574",
+    "name": "Subtronics Pumpkin Cyclops Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Orange"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/4390397574/subtronics-pumpkin-cyclops-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-1872542969",
+    "sku": "etsy-1872542969",
+    "name": "Horny Heart Bucket Hat (1 of 1)",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1872542969/horny-heart-bucket-hat-1-of-1?ref=rss"
+  },
+  {
+    "id": "etsy-1858355002",
+    "sku": "etsy-1858355002",
+    "name": "Pastel Smiley Random Rainbow Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Rainbow"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1858355002/pastel-smiley-random-rainbow-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-1492346332",
+    "sku": "etsy-1492346332",
+    "name": "NEON Smiley Random Rainbow Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Rainbow"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1492346332/neon-smiley-random-rainbow-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-1800956783",
+    "sku": "etsy-1800956783",
+    "name": "Mr. Wobble Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1800956783/mr-wobble-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-1800953771",
+    "sku": "etsy-1800953771",
+    "name": "Shrek Excision Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1800953771/shrek-excision-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-4363355310",
+    "sku": "etsy-4363355310",
+    "name": "Cyclops Dinosaur Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/4363355310/cyclops-dinosaur-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-4363375972",
+    "sku": "etsy-4363375972",
+    "name": "Lost Lands Dinosaur Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/4363375972/lost-lands-dinosaur-bucket-hat?ref=rss"
+  },
+  {
+    "id": "etsy-1654821915",
+    "sku": "etsy-1654821915",
+    "name": "REZZ Bucket Hat",
+    "description": "Handmade item from Etsy.",
+    "price": 0,
+    "images": [],
+    "category": "Hats",
+    "colors": [
+      "Neon Multi"
+    ],
+    "inStock": true,
+    "quantity": 1,
+    "featured": false,
+    "etsyUrl": "https://www.etsy.com/listing/1654821915/rezz-bucket-hat?ref=rss"
+  }
+]

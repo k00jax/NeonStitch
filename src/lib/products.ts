@@ -1,4 +1,5 @@
 import { Product } from "./types";
+import etsyProducts from "./etsy-products.generated.json";
 
 const baseProducts: Product[] = [
   {
@@ -147,11 +148,32 @@ const baseProducts: Product[] = [
   },
 ];
 
-export const products: Product[] = baseProducts.map((product) => ({
+const fallbackProducts: Product[] = baseProducts.map((product) => ({
   ...product,
   sku: product.sku ?? product.id,
   quantity: typeof product.quantity === "number" ? product.quantity : product.inStock ? 1 : 0,
 }));
+
+const importedEtsyProducts: Product[] = (Array.isArray(etsyProducts) ? etsyProducts : []).map(
+  (product) => ({
+    ...product,
+    sku: product.sku ?? product.id,
+    quantity:
+      typeof product.quantity === "number"
+        ? product.quantity
+        : product.inStock
+          ? 1
+          : 0,
+  })
+);
+
+export const products: Product[] =
+  importedEtsyProducts.length > 0
+    ? importedEtsyProducts.map((product, index) => ({
+        ...product,
+        featured: index < 4,
+      }))
+    : fallbackProducts;
 
 export const categories = [
   "All",

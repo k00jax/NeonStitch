@@ -38,12 +38,21 @@ export default function ProductCard({ product }: { product: Product }) {
             background: `linear-gradient(135deg, ${primaryColor}22, ${primaryColor}44)`,
           }}
         >
-          {/* Decorative yarn ball pattern */}
-          <div className="relative">
-            <span className="text-6xl">
-              {categoryIcons[product.category] || "🧶"}
-            </span>
-          </div>
+          {product.images?.[0] ? (
+            <img
+              src={product.images[0]}
+              alt={product.name}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="relative">
+              <span className="text-6xl">
+                {categoryIcons[product.category] || "🧶"}
+              </span>
+            </div>
+          )}
           <div
             className="absolute bottom-0 left-0 right-0 h-1"
             style={{
