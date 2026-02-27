@@ -85,9 +85,10 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
           <button
             onClick={() => addItem(product)}
-            className="rounded-full bg-neon-pink/10 px-4 py-2 text-xs font-semibold text-neon-pink transition-all hover:bg-neon-pink hover:text-white hover:shadow-[0_0_15px_rgba(255,20,147,0.4)]"
+            disabled={!product.inStock}
+            className="rounded-full bg-neon-pink/10 px-4 py-2 text-xs font-semibold text-neon-pink transition-all hover:bg-neon-pink hover:text-white hover:shadow-[0_0_15px_rgba(255,20,147,0.4)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neon-pink/10 disabled:hover:text-neon-pink disabled:hover:shadow-none"
           >
-            Add to Cart
+            {product.inStock ? "Add to Cart" : "Out of Stock"}
           </button>
         </div>
       </div>

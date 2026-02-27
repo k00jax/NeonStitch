@@ -37,6 +37,18 @@ SQUARE_ACCESS_TOKEN=your-square-access-token
 SQUARE_APPLICATION_ID=your-square-application-id
 SQUARE_LOCATION_ID=your-square-location-id
 SQUARE_ENVIRONMENT=sandbox
+
+# Etsy Inventory Sync
+ETSY_CLIENT_ID=your-etsy-client-id
+ETSY_CLIENT_SECRET=your-etsy-client-secret
+ETSY_API_KEY=your-etsy-api-key
+ETSY_OAUTH_ACCESS_TOKEN=your-etsy-oauth-access-token
+ETSY_OAUTH_REFRESH_TOKEN=your-etsy-oauth-refresh-token
+ETSY_WEBHOOK_SIGNING_SECRET=your-etsy-webhook-signing-secret
+ETSY_SHOP_ID=your-etsy-shop-id
+
+# Database for webhook deliveries, jobs, and inventory updates
+DATABASE_URL=postgres://user:password@host:5432/dbname
 ```
 
 Get your credentials at [developer.squareup.com](https://developer.squareup.com/apps).
@@ -103,3 +115,36 @@ Remember to add your environment variables in the Vercel dashboard under **Setti
 - Product images currently use emoji placeholders. Replace the image areas in `ProductCard.tsx` and product detail page with actual product photos.
 - Product data is in `src/lib/products.ts` — this can be migrated to a database later.
 - The Etsy shop link points to [etsy.com/shop/neonstitchbyemily](https://www.etsy.com/shop/neonstitchbyemily).
+
+## 🔄 Etsy Inventory Sync
+
+NeonStitch supports webhook-driven Etsy inventory synchronization with idempotent delivery handling and background job processing.
+
+- **Webhook endpoint**: `POST /api/webhooks/etsy`
+- **Status endpoint**: `GET /admin/integrations/etsy/status`
+- **Worker command**: `npm run worker:etsy`
+
+### Setup Steps
+
+1. Apply SQL migration in `migrations/20260226_etsy_inventory_sync.sql`.
+2. Configure Etsy and DB environment variables in `.env.local`.
+3. Register Etsy webhook subscription for inventory/listing updates to:
+    - `https://<your-domain>/api/webhooks/etsy`
+4. Start the worker process:
+    - `npm run worker:etsy`
+
+### Local Webhook Simulation
+
+Run the sample sender script:
+
+```bash
+node scripts/send_etsy_webhook_sample.js
+```
+
+Optional payload file override:
+
+```bash
+node scripts/send_etsy_webhook_sample.js tests/etsy/fixtures/etsy-webhook-sample.json
+```
+
+The script signs payloads with `ETSY_WEBHOOK_SIGNING_SECRET` and posts to `ETSY_WEBHOOK_URL` (default: `http://localhost:3000/api/webhooks/etsy`).

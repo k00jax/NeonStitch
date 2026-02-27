@@ -1,6 +1,6 @@
 import { Product } from "./types";
 
-export const products: Product[] = [
+const baseProducts: Product[] = [
   {
     id: "neon-bucket-hat-pink",
     name: "Neon Pink Bucket Hat",
@@ -147,6 +147,12 @@ export const products: Product[] = [
   },
 ];
 
+export const products: Product[] = baseProducts.map((product) => ({
+  ...product,
+  sku: product.sku ?? product.id,
+  quantity: typeof product.quantity === "number" ? product.quantity : product.inStock ? 1 : 0,
+}));
+
 export const categories = [
   "All",
   "Hats",
@@ -167,4 +173,23 @@ export function getProductsByCategory(category: string): Product[] {
 
 export function getFeaturedProducts(): Product[] {
   return products.filter((p) => p.featured);
+}
+
+export function applyInventorySnapshot(
+  sourceProducts: Product[],
+  inventory: Record<string, number>
+): Product[] {
+  return sourceProducts.map((product) => {
+    const key = product.sku ?? product.id;
+    const qty = inventory[key];
+    if (typeof qty !== "number") {
+      return product;
+    }
+
+    return {
+      ...product,
+      quantity: qty,
+      inStock: qty > 0,
+    };
+  });
 }

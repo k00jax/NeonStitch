@@ -1,5 +1,6 @@
 export interface Product {
   id: string;
+  sku?: string;
   name: string;
   description: string;
   price: number;
@@ -7,6 +8,7 @@ export interface Product {
   category: string;
   colors: string[];
   inStock: boolean;
+  quantity?: number;
   featured: boolean;
 }
 

@@ -2,9 +2,9 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { getProduct } from "@/lib/products";
+import { applyInventorySnapshot, getProduct } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const colorMap: Record<string, string> = {
   "Hot Pink": "#ff1493",
@@ -26,11 +26,28 @@ const categoryIcons: Record<string, string> = {
 
 export default function ProductPage() {
   const params = useParams();
-  const product = getProduct(params.id as string);
+  const baseProduct = getProduct(params.id as string);
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
+  const [product, setProduct] = useState(baseProduct);
 
-  if (!product) {
+  useEffect(() => {
+    if (!baseProduct) {
+      return;
+    }
+
+    fetch("/api/inventory", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((data) => {
+        const hydrated = applyInventorySnapshot([baseProduct], data.inventory ?? {});
+        setProduct(hydrated[0]);
+      })
+      .catch(() => {
+        setProduct(baseProduct);
+      });
+  }, [baseProduct]);
+
+  if (!baseProduct || !product) {
     return (
       <div className="mx-auto max-w-7xl px-6 py-20 text-center">
         <span className="mb-4 block text-6xl">😢</span>
@@ -138,9 +155,10 @@ export default function ProductPage() {
           <div className="flex flex-wrap gap-4">
             <button
               onClick={handleAddToCart}
+              disabled={!product.inStock}
               className={`btn-neon flex items-center gap-2 ${
                 added ? "!bg-neon-green" : ""
-              }`}
+              } disabled:cursor-not-allowed disabled:opacity-50`}
             >
               {added ? (
                 <>

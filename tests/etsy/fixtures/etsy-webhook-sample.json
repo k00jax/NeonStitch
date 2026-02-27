@@ -1,0 +1,8 @@
+{
+  "event_id": "evt_12345",
+  "event_type": "listing_inventory_updated",
+  "timestamp": 1761732000,
+  "shop_id": "123456",
+  "listing_id": "987654321",
+  "delivery_id": "del_abc123"
+}

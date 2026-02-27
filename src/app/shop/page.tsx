@@ -1,8 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { products, categories, getProductsByCategory } from "@/lib/products";
+import {
+  categories,
+  getProductsByCategory,
+  applyInventorySnapshot,
+} from "@/lib/products";
 import ProductGrid from "@/components/ProductGrid";
 import { Product } from "@/lib/types";
 import { Suspense } from "react";
@@ -11,16 +15,28 @@ function ShopContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category") || "All";
   const [activeCategory, setActiveCategory] = useState(categoryParam);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [inventoryMap, setInventoryMap] = useState<Record<string, number>>({});
+  const filteredProducts = useMemo<Product[]>(() => {
+    return applyInventorySnapshot(getProductsByCategory(activeCategory), inventoryMap);
+  }, [activeCategory, inventoryMap]);
+
+  useEffect(() => {
+    fetch("/api/inventory", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((data) => {
+        setInventoryMap(data.inventory ?? {});
+      })
+      .catch(() => {
+        setInventoryMap({});
+      });
+  }, []);
 
   useEffect(() => {
     setActiveCategory(categoryParam);
-    setFilteredProducts(getProductsByCategory(categoryParam));
   }, [categoryParam]);
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
-    setFilteredProducts(getProductsByCategory(category));
     // Update URL without full reload
     const url = category === "All" ? "/shop" : `/shop?category=${category}`;
     window.history.pushState({}, "", url);
